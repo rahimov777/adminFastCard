@@ -84,7 +84,9 @@ export const GetColor = createAsyncThunk("profile/GetColor", async () => {
 
 export const AddProducts = createAsyncThunk("profile/AddProducts", async (user) => {
   try {
-    const { data } = await MyAxios.post("/Product/add-product", user);
+    const { data } = await MyAxios.post("/Product/add-product", user, {
+      headers: {"Content-Type": "multipart/form-data"}
+    });
     return data.data;
   } catch (error) {
     console.log(error);
