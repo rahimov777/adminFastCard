@@ -16,56 +16,41 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-export const description = "An area chart with gradient fill";
-
-const chartData = [
-  {
-    month: "Mac Book",
-    desktop: 7199,
-    mobile: 6099,
-  },
-  {
-    month: "Apple Watch",
-    desktop: 599,
-    mobile: 499,
-  },
-  {
-    month: "Iphone",
-    desktop: 1199,
-    mobile: 1099,
-  },
-  {
-    month: "Iphone 14 pro max",
-    desktop: 1499,
-    mobile: 1899,
-  },
-  {
-    month: "CAT FROM REACT",
-    desktop: 222,
-    mobile: 12,
-  },
-];
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
-} satisfies ChartConfig;
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GetProduct } from "@/reducers/profile";
 
 export function ChartAreaGradient() {
+  const { data, isLoading } = useSelector((state: any) => state.profile);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(GetProduct());
+  }, [dispatch]);
+
+    const chartData =
+    data?.products?.map((p: any) => ({
+      month: p.productName,
+      desktop: p.price,
+      mobile: p.discountPrice,
+    })) || [];
+
+  if (isLoading) {
+    return <h1 className="text-blue-500">Loading chart...</h1>;
+  }
+
   return (
     <Card className="w-[547px] ml-5.5">
       <CardHeader>
         <CardTitle>Sales Revenue</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer
+          config={{
+            desktop: { label: "Desktop", color: "var(--chart-1)" },
+            mobile: { label: "Mobile", color: "var(--chart-2)" },
+          }}
+        >
           <AreaChart
             accessibilityLayer
             data={chartData}

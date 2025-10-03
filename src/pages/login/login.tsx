@@ -1,5 +1,7 @@
+import Example from "@/components/tostify/example";
 import LoginLayout from "@/layout/loginLayout";
 import { MyAxios, SaveToken } from "@/lib/utils";
+import { jwtDecode } from "jwt-decode";
 import { Loader } from "lucide-react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -11,6 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorUser, setErrorUser] = useState("");
   const navigate = useNavigate();
 
   async function Login(user: object) {
@@ -18,11 +21,19 @@ const Login = () => {
       setLoading(true);
       const { data } = await MyAxios.post(`/Account/login`, user);
       SaveToken(data.data);
-
-      setTimeout(() => {
+      let decoded = jwtDecode(data.data)[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+      if (decoded == "SuperAdmin") {
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 1000);
+      } else {
+        setErrorUser("You're not admin");
         setLoading(false);
-        navigate("/");
-      }, 1000);
+        console.error("ERROR");
+      }
     } catch (error) {
       setError("Invalid password or username");
       setLoading(false);
@@ -68,6 +79,7 @@ const Login = () => {
               </div>
             </div>
             {error && <p className="text-red-500">{error}</p>}
+            {errorUser && !error && <p className="text-red-500">{errorUser}</p>}
             <a className="text-blue-500 font-semibold" href="">
               Forgot password?
             </a>
@@ -80,7 +92,6 @@ const Login = () => {
             >
               {loading ? <Loader /> : "Log in"}
             </button>
-            
           </form>
         </div>
       </div>

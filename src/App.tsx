@@ -3,9 +3,10 @@ import Layout from "./layout/layout";
 import Home from "./pages/home/home";
 import Orders from "./pages/orders/orders";
 import Other from "./pages/other/other";
-import Products from "./pages/products/products";
 import Login from "./pages/login/login";
 import LoginLayout from "./layout/loginLayout";
+import { Products } from "./pages/products/products";
+import Addproduct from "./pages/addproduct/addproduct";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -29,12 +30,16 @@ const App = () => {
           path: "/products",
           element: <Products />,
         },
+        {
+          path: "/addnew",
+          element: <Addproduct />,
+        },
       ],
     },
     {
-      path: "/auth",
+      path: "/login",
       element: <LoginLayout />,
-      children: [{ path: "login", element: <Login /> }],
+      children: [{ path: "/login", element: <Login /> }],
     },
   ]);
 
