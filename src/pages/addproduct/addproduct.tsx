@@ -135,7 +135,7 @@ export default function AddProduct() {
     images.forEach((file) => formData.append("Images", file));
 
     dispatch(AddProducts(formData));
-    console.log(AddProducts(formData));
+    console.log(formData);
     // navigate("/products")
     
   };

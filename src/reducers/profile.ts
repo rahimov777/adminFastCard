@@ -82,25 +82,34 @@ export const GetColor = createAsyncThunk("profile/GetColor", async () => {
   }
 });
 
-export const AddProducts = createAsyncThunk("profile/AddProducts", async (user) => {
-  try {
-    const { data } = await MyAxios.post("/Product/add-product", user, {
-      headers: {"Content-Type": "multipart/form-data"}
-    });
-    return data.data;
-  } catch (error) {
-    console.log(error);
+export const AddProducts = createAsyncThunk(
+  "profile/AddProducts",
+  async (user) => {
+    try {
+      const { data } = await MyAxios.post("/Product/add-product", user, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(user);
+      
+      return data.data;
+    } catch (error) {
+      console.log(user);
+      console.log(error);
+    }
   }
-});
+);
 
-export const AddColor = createAsyncThunk("profile/AddColor", async (name, {dispatch}) => {
-  try {
-    await MyAxios.post(`/Color/add-color?ColorName=${name}`);
-    dispatch(GetColor())
-  } catch (error) {
-    console.log(error);
+export const AddColor = createAsyncThunk(
+  "profile/AddColor",
+  async (name, { dispatch }) => {
+    try {
+      await MyAxios.post(`/Color/add-color?ColorName=${name}`);
+      dispatch(GetColor());
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 export const ProfileSlice = createSlice({
   name: "profile",
