@@ -7,6 +7,8 @@ import Login from "./pages/login/login";
 import LoginLayout from "./layout/loginLayout";
 import { Products } from "./pages/products/products";
 import Addproduct from "./pages/addproduct/addproduct";
+import { EditProducts } from "./reducers/profile";
+import EditProduct from "./components/EditProduct/EditProduct";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -33,6 +35,10 @@ const App = () => {
         {
           path: "/addnew",
           element: <Addproduct />,
+        },
+        {
+          path: "/editproduct",
+          element: <EditProduct />,
         },
       ],
     },

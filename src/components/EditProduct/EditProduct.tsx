@@ -40,14 +40,14 @@ import {
 import { DialogClose } from "@radix-ui/react-dialog";
 import { FaTrashAlt } from "react-icons/fa";
 
-export default function AddProduct() {
+export default function EditProduct() {
   const [selectedColors, setSelectedColors] = useState<number | null>(null);
   const [tags, setTags] = useState([
     "T-Shirt",
     "Men Clothes",
     "Summer Collection",
   ]);
-
+  
   const { brand, color, subCat } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 

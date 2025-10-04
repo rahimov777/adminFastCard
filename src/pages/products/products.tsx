@@ -111,7 +111,7 @@ export function Products() {
 
       {/* Table */}
       <div className="rounded-lg border bg-card">
-        <Table className="w-[1240px] h-screen mt-[20px]">
+        <Table className="w-[1240px] h-[300px] mt-[20px]">
           <TableHeader>
             <TableRow>
               <TableHead className="w-12">
@@ -157,6 +157,7 @@ export function Products() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-end gap-2">
+                    <Link to={"/editproduct"}>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -164,6 +165,7 @@ export function Products() {
                     >
                       <FiEdit2 className="h-4 w-4" />
                     </Button>
+                    </Link>
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button

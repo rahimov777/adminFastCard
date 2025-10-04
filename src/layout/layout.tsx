@@ -13,8 +13,12 @@ const Layout = () => {
   const navigate = useNavigate();
   // const [errorr, setErrorr] = useState("");
 
+  const nameAdmin = GetToken() && jwtDecode(GetToken()).name;
+
+  
   useEffect(() => {
     const dex = GetToken() && jwtDecode(GetToken());
+
     const isAdmin =
       dex["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
@@ -36,7 +40,7 @@ const Layout = () => {
     }
   }, [router]);
 
-  const [firstLetter] = useState("YUSUF");
+  const [firstLetter] = useState(nameAdmin);
   const [logicH] = useState(firstLetter.at(0));
 
   return (
